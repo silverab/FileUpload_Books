@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %} {% endblock title %}
+
+{% block content %}
+	<h3>Book List</h3>
+	<p>
+		<a href="{% url 'upload_book' %}" class="btn btn-warning">Upload Book</a>
+	</p>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Cover</th>
+				<th>Title</th>
+				<th>Author</th>
+				<th>Download</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for book in books %}
+			<tr>
+				<td>
+					{% if book.cover %}
+					<img src="{{ book.cover.url }}" alt="{{ book.title }}" height="200" width="125">
+					{% endif%}
+				</td>
+				<td>{{ book.title }}</td>
+				<td>{{ book.author}}</td>
+				<td><a href="{{ book.pdf.url }}" class="btn btn-sm btn-primary">Download PDF</a></td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock content %}
