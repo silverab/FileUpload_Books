@@ -38,3 +38,11 @@ def upload_book(request):
 		form = BookForm()
 	context = {'form': form}
 	return render(request, 'upload_book.html', context)
+
+
+def delete_book(request,pk):
+	if request.method == 'POST':
+		book = Book.objects.get(pk=pk)
+		book.delete()
+	return redirect('book_list')
+	
