@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView, CreateView
+from django.urls import reverse_lazy 
+
 
 from django.core.files.storage import FileSystemStorage
 
@@ -46,3 +48,15 @@ def delete_book(request,pk):
 		book.delete()
 	return redirect('book_list')
 	
+
+class BookListView(ListView):
+	model = Book
+	template_name = 'class_book_list.html'
+	context_object_name = 'books'
+
+
+class UploadBookView(CreateView):
+	model = Book
+	fields = ('title', 'author', 'pdf', 'cover')
+	success_url = reverse_lazy('class_book_list')
+	template_name = 'upload_book.html'
